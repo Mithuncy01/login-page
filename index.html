@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+<div class="container">
+
+    <!-- Inner Section  -->
+<section id="container2" class="container2">
+   <h1 class="logo">Payoneer Bank BD</h1>
+    <div id="inner" class="inner">
+        <div class="sumBalance">
+                <h3>Diposit Balance</h3>
+                <h1 >$<span id="dipositBalance">00</span></h1>
+            <div class="inputdiv">
+                <p id="text"></p>
+                <input class="input1" id="diposit" type="text" placeholder="Diposite amount">
+                <button class="button2" id="dipositButton">Add</button>
+             </div>
+        </div>
+        <div class="sumBalance">
+            <h3>Withdraw Balance</h3>
+            <h1>$<span id="withdrawBalance">00</span></h1>
+        <div class="inputdiv">
+            <p id="text2"></p>
+            <input id="withdraw" class="input1" type="text" placeholder="Withdraw amount">
+            <button class="button2" id="withdrawButton">Add</button>
+         </div>
+    </div>
+    <div class="TotalBalance">
+        <h3>Tolal Balance</h3>
+        <h1>$<span id="totalBalance">520</span></h1> 
+</div>
+    </div>
+    
+</section>   
+    <!-- log in section -->
+    <div class="main" id="logInSection">
+        <h1 class="name" > Payoneer Bank BD</h1>
+        <input id="input" class="input" type="text"  placeholder="name"> </input>
+        <input id="input" class="input" type="password"  placeholder="password"></input>
+        <button id="loginButton" class="loginButton">Login</button>
+        <p class="signup">Don't have a account? <a>Signup</a></p>
+    </div>
+    <div class="backgroundcolor"></div>
+    <img class="image" src="girls4.jpg">
+</div>
+    
+   <script>
+        // Login Section
+        const loginButton = document.getElementById("loginButton");
+        loginButton.addEventListener("click", () => {
+            document.getElementById("logInSection").style.display = "none";
+            document.getElementById("container2").style.display = "block";
+        })
+        
+        // Diposit Amount
+        const dipositButton = document.getElementById("dipositButton");
+        dipositButton.addEventListener("click", function(){
+            const diposit = document.getElementById("diposit").value;
+            const dipositNumber = parseFloat(diposit);
+            let text;
+            document.getElementById("text").style.display = "block";
+            
+            if(isNaN(dipositNumber) || Math.sign(dipositNumber) === -1){
+                text = "Type not valid";
+                document.getElementById("text").style.color = "red";
+            } 
+            else if(dipositNumber < 5){
+                text = "Minimum 5$ Allow";
+                document.getElementById("text").style.color = "red";
+            } 
+            else{
+                myFunction("dipositBalance", dipositNumber);
+                myFunction("totalBalance", dipositNumber);
+                document.getElementById("diposit").value = "";
+                text = "Successful";
+                document.getElementById("text").style.color = "green";
+            }
+                document.getElementById("text").innerHTML= text;
+        })
+        // Function
+        function myFunction(id, dipositNumber, withdrawNumber){
+                const Balance = document.getElementById(id).innerText;
+                const BalanceByNumber = parseFloat(Balance);
+                const totalAmount = dipositNumber + BalanceByNumber;
+                document.getElementById(id).innerText = totalAmount;
+            }
+        //withdraw Amount//
+        const withdrawButton = document.getElementById("withdrawButton");
+        withdrawButton.addEventListener("click", function(){
+            const withdraw = document.getElementById("withdraw").value;
+            const withdrawNumber = parseFloat(withdraw);
+            const totalBalance1 = document.getElementById("totalBalance");
+            let text;
+            document.getElementById("text2").style.display ="block";
+            if(isNaN(withdrawNumber) || Math.sign(withdrawNumber) === -1){
+                text = "Type not valid";
+                document.getElementById("text2").style.color = "red";
+            }
+            else if (withdrawNumber < 5){
+                text = "Minimum 5$ Allow";
+                document.getElementById("text2").style.color = "red";
+            }
+            
+            // else if(withdrawNumber <= totalBalance1){
+            //     text = "Insufficient in amount"
+            //     document.getElementById("text2").style.color = "red";
+            // }
+            else{
+                myFunction("withdrawBalance", withdrawNumber);
+                myFunction("totalBalance", -1* withdrawNumber);
+                document.getElementById("withdraw").value = "";
+                text = "Successful";
+                document.getElementById("text2").style.color = "green";
+            }
+            document.getElementById("text2").innerHTML= text;
+        })
+
+   
+   </script>
+</body>
+</html>
